@@ -24,10 +24,18 @@
 <script>
   var map = L.map('map').setView([38.029, -84.4947], 13);
   L.esri.basemapLayer("Topographic").addTo(map);
+
   camMarker.forEach(function(marker) {
     L.marker([marker.lat, marker.lng]).addTo(map);
   });
 
+  var url = "https://traffic.arcgis.com/arcgis/rest/services/World/Traffic/MapServer";
+
+  L.esri.dynamicMapLayer({
+    url: url,
+    proxy: 'http://utility.arcgis.com/usrsvcs/appservices/uRTr1OAf7mg1pg1A/rest/services/World/Traffic/MapServer',
+    opacity : 0.75,
+  }).addTo(map);
 </script>
 
 </body>
