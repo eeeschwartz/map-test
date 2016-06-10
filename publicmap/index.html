@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+
+<html>
+<head id="Head1"><title>
+  LFUCG Traffic
+</title><link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXAF6lchVtwh54mz8uNwQ8ZOX8lBVAwb8"></script>
+  <link rel="stylesheet" href="css/lexington_lt051316244.css" /><link rel="stylesheet" href="flowplayer_6.0.5/skin/minimalist.css" />
+    <script src="flowplayer_6.0.5/flowplayer.min.js"></script>
+  <script src="flowplayer_6.0.5/flowplayer.hlsjs.min.js"></script>
+
+    <style type="text/css">
+
+            body {
+                  width: 99%;
+                  min-width: 1000px;
+                  font-family:"Helvetica Neue", "Helvetica", "Source Sans Pro", "Arial", sans-serif;
+                  background-color: #ffffff;
+            }
+
+            .lex-site-header {
+                background-image: url("images/lexington-traffic-cams.jpg");
+                background-repeat: no-repeat;
+                background-size: cover;
+                min-height: 0;
+            }
+
+            .lex-site-navbar {
+                background-color: rgba(255, 255, 255, 0.75);
+                padding-bottom: 0.40em;
+            }
+
+            .lex-site-navbar .lex-logo {
+                min-height: 50px;
+        position: fixed;
+            }
+
+            #logo {
+        height: 50px;
+        min-height: 50px;
+                background-image: url("images/lexington-logo.png");
+                background-image: url("images/lexington-logo.svg");
+                background-repeat: no-repeat;
+        padding-top: 10px;
+            }
+
+            .lex-grid-full {
+                max-width: 1500px;
+                margin: auto;
+            }
+
+            .lex-search-hero-container {
+                padding-top: 25px;
+                padding-bottom: 25px;
+                color: white;
+                background-color: rgba(0, 26, 73, 0.75);
+            }
+
+            #quicklinks {
+                float:right;
+                width:50%;
+        padding-top: 30px;
+            }
+
+            .lex-quicklinks li, .lex-quicklinks li a, .lex-quicklinks  {
+                display: inline;
+                width: 95%;
+                text-align: right;
+        align: right;
+                margin-right: 5px;
+                color: black;
+                text-decoration: none;
+            }
+
+      .img-btn{
+        width:auto;
+        float:right;
+        display: inline;
+                margin-right: 10px;
+        margin-left: 0px;
+        margin-top: 15px;
+      }
+
+        #mgrmap {
+                clear: both;
+                margin-top:0px;
+        }
+
+            #toolbar {
+                width: 22%;
+                height: 900px;
+                float: left;
+            }
+
+            #areas {
+                max-height: 766px;
+                text-align: center;
+            }
+
+            #cameras {
+                max-height: 801px;
+                padding: 0;
+            }
+
+            #areasTable {
+                margin-left:auto;
+                margin-right:auto;
+                width:100%;
+                border-spacing: 0 10px;
+        background-color: lightgray;
+            }
+
+            #areasTable th {
+                font-size: 22px;
+                margin-top: 55px;
+                cursor: pointer;
+            }
+
+      #camTable{
+        background-color: lightgray;
+      }
+
+            .areaColumns {
+                width: 100%;
+                height: 100%;
+                font-size: 16px;
+                text-align: center;
+                vertical-align: middle;
+                cursor: pointer;
+            }
+
+            .camColumns {
+                width: 50%;
+                height: 75px;
+                padding: 0px;
+                margin: 0px;
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            .camAccordionDiv {
+                position: relative;
+                width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
+            .camAccordionImg {
+                width: 90%;
+                height: 90%;
+                border: 2px solid #001A49;
+                margin: 0;
+                padding: 0;
+                cursor: pointer;
+            }
+
+            .camAccordionDesc {
+                position: absolute;
+                top: 35%;
+                left: 10%;
+                width: 75%;
+                text-align: left;
+                white-space: normal;
+                overflow: hidden;
+                font-size: 75%;
+                text-overflow: ellipsis;
+                color: white;
+                background-color: rgba(0, 26, 73, 0.75);
+                cursor: pointer;
+            }
+
+            .camAccordionDiv:hover .camAccordionDesc {
+                opacity: 0.2;
+            }
+
+            #map {
+        width: 78%;
+                height: 900px;
+                float: left;
+            }
+
+      .gm-style-iw {
+                top: 0 !important;
+                left: 0 !important;
+                background: rgba(255, 255, 255, 0);
+            }
+
+
+            .infoWindowContent {
+                text-align: center;
+                width: 350px;
+                height: 100%;
+                overflow: hidden;
+            }
+
+            .infoWindowHeading {
+                background-color:rgba(0, 26, 73, 0.75);
+                color: white;
+                margin: 0;
+                padding: 0 0 0 0;
+            }
+
+            .videoPlayer {
+                margin: 0 auto;
+                width: 350px;
+                height: 197px;
+            }
+
+            camMapImg {
+                display: block;
+                width:90px;
+                height:90px;
+            }
+
+            .lex-slab-blue {
+                background-color: #001A49;
+            }
+
+            #footer {
+                clear:both;
+            }
+
+            .footer-ulist a {
+                color:#BFBFBF;
+            }
+
+            #lex-footer-first {
+                width:66.66%;
+                float:left;
+            }
+
+            #lex-footer-second {
+                width:33.33%;
+                float:left;
+            }
+
+            #lex-seal-div {
+                clear: both;
+            }
+
+            .lex-footer-div {
+                float:left;
+                margin: 0 5px 0 10px;
+            }
+
+            .footer-ulist {
+                list-style:none;
+                padding-left:0;
+            }
+
+            .lex-font-standout {
+                text-transform: uppercase;
+                color: #E0B111;
+                font-weight: 400;
+            }
+
+            #contact-info, #contact-info a  {
+                color: #FFFFFF;
+                display: block;
+            }
+
+            #lex-seal-div {
+                margin: 5px 5px 0 10px;
+            }
+
+            #lex-seal-div .footer-ulist li {
+                display:inline;
+                margin-right: 10px;
+            }
+
+            #lex-seal {
+                height:82.9px;
+                width:83.7px;
+            }
+
+      .flowplayer.is-error {
+         border: 0px solid red;
+      }
+
+       /* customized error message */
+      .flowplayer.is-error .fp-message {
+        background-image: url(images/streamAvailables.jpg);
+        background-color: #4C4646;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+      }
+
+      .flowplayer.is-error .fp-message h2,
+      .flowplayer.is-error .fp-message p {
+        font-weight:bold;
+        color: #fff;
+        visibility: hidden;
+      }
+
+      .ui-accordion .ui-accordion-header {
+        display: block;
+        cursor: pointer;
+        position: relative;
+        margin: 0 0 0 0;
+        min-height: 0; /* support: IE7 */
+        text-transform: uppercase;
+        font-weight: 600;
+        color: #E0B111;
+        background-color: #001A49;
+        background-image: none;
+      }
+
+      .ui-accordion .ui-accordion-content {
+        padding: 0;
+        margin: 0 0 0 0;
+        border-top: 0;
+        overflow: auto;
+        background-color: lightgray;
+      }
+
+      .flowplayer .fp-logo {
+        display: block;
+        opacity: 0.9 !important;
+        left: auto;
+        top: 0px;
+        right: 10px;
+        height: 30%;
+        width: 30%;
+      }
+
+  </style>
+
+    <script type="text/javascript">
+
+        var camMarker = [
+
+                        {
+                        "camera": 'LEX-CAM-001',
+                        "lat": '38.077211',
+                        "lng": '-84.494449',
+                        "description": 'Newtown/Newtown Ct.',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-001.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-001.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-001.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-001.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-002',
+                        "lat": '38.085835',
+                        "lng": '-84.490123',
+                        "description": 'Newtown/Citation',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-002.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-002.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-002.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-002.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-003',
+                        "lat": '38.092834',
+                        "lng": '-84.487627',
+                        "description": 'Newtown/Marriot',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-003.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-003.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-003.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-003.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-004',
+                        "lat": '38.098206',
+                        "lng": '-84.484927',
+                        "description": 'Newtown/I75',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-004.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-004.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-004.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-004.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-005',
+                        "lat": '38.074762',
+                        "lng": '-84.506262',
+                        "description": 'New Circle/G-town (Outer)',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-005.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-005.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-005.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-005.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-006',
+                        "lat": '38.095605',
+                        "lng": '-84.513734',
+                        "description": 'G-town/Citation Blvd.',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-006.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-006.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-006.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-006.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-007',
+                        "lat": '38.043445',
+                        "lng": '-84.501296',
+                        "description": 'Limestone/Maxwell',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-007.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-007.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-007.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-007.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-008',
+                        "lat": '38.048959',
+                        "lng": '-84.499737',
+                        "description": 'Main/Broadway',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-008.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-008.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-008.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-008.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-009',
+                        "lat": '38.041508',
+                        "lng": '-84.428486',
+                        "description": 'Winchester/Sir Barton',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-009.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-009.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-009.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-009.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-010',
+                        "lat": '38.053538',
+                        "lng": '-84.430487',
+                        "description": 'I-75/I-64 Southern Split',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-010.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-010.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-010.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-010.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-011',
+                        "lat": '38.042204',
+                        "lng": '-84.481482',
+                        "description": '3rd/Midland',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-011.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-011.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-011.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-011.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-012',
+                        "lat": '38.042225',
+                        "lng": '-84.466240',
+                        "description": 'Winchester/Loudon',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-012.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-012.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-012.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-012.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-013',
+                        "lat": '37.992965',
+                        "lng": '-84.460561',
+                        "description": 'Alumni/Yellowstone',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-013.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-013.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-013.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-013.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-014',
+                        "lat": '37.995112',
+                        "lng": '-84.465461',
+                        "description": 'New Circle/Alumni (Outer)',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-014.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-014.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-014.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-014.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-015',
+                        "lat": '37.985714',
+                        "lng": '-84.459403',
+                        "description": 'MOW/Pimlico Parkway',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-015.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-015.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-015.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-015.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-016',
+                        "lat": '38.018898',
+                        "lng": '-84.417931',
+                        "description": 'MOW/Sir Barton',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-016.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-016.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-016.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-016.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-017',
+                        "lat": '38.024283',
+                        "lng": '-84.422911',
+                        "description": 'Sir Barton/Star Shoot',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-017.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-017.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-017.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-017.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-018',
+                        "lat": '38.012516',
+                        "lng": '-84.420246',
+                        "description": 'MOW/Helmsdale',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-018.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-018.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-018.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-018.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-019',
+                        "lat": '38.009047',
+                        "lng": '-84.422392',
+                        "description": 'MOW/Todds',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-019.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-019.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-019.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-019.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-020',
+                        "lat": '38.007626',
+                        "lng": '-84.426252',
+                        "description": 'MOW/Maple Leaf',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-020.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-020.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-020.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-020.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-021',
+                        "lat": '38.006783',
+                        "lng": '-84.436373',
+                        "description": 'MOW/Palumbo',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-021.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-021.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-021.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-021.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-022',
+                        "lat": '37.997084',
+                        "lng": '-84.449526',
+                        "description": 'MOW/Beaver Creek',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-022.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-022.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-022.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-022.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-023',
+                        "lat": '38.001026',
+                        "lng": '-84.446248',
+                        "description": 'MOW/Richmond',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-023.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-023.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-023.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-023.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-024',
+                        "lat": '37.990361',
+                        "lng": '-84.456469',
+                        "description": 'MOW/Alumni',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-024.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-024.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-024.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-024.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-025',
+                        "lat": '38.005341',
+                        "lng": '-84.450652',
+                        "description": 'Richmond/Mt. Tabor',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-025.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-025.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-025.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-025.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-026',
+                        "lat": '37.998012',
+                        "lng": '-84.442931',
+                        "description": 'Richmond/Eagle Creek',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-026.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-026.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-026.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-026.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-027',
+                        "lat": '38.020424',
+                        "lng": '-84.467605',
+                        "description": 'Richmond/Lakeshore',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-027.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-027.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-027.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-027.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-028',
+                        "lat": '38.046420',
+                        "lng": '-84.497005',
+                        "description": 'Main/Limestone',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-028.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-028.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-028.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-028.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-029',
+                        "lat": '37.972338',
+                        "lng": '-84.472831',
+                        "description": 'MOW/Armstrong Mill',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-029.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-029.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-029.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-029.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-030',
+                        "lat": '37.967768',
+                        "lng": '-84.488377',
+                        "description": 'MOW/Crosby',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-030.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-030.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-030.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-030.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-031',
+                        "lat": '38.021522',
+                        "lng": '-84.492822',
+                        "description": 'Tates Creek/Cooper',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-031.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-031.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-031.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-031.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-032',
+                        "lat": '38.013310',
+                        "lng": '-84.494771',
+                        "description": 'Tates Creek/Alumni',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-032.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-032.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-032.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-032.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-033',
+                        "lat": '38.003470',
+                        "lng": '-84.496143',
+                        "description": 'Tates Creek/Albany',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-033.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-033.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-033.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-033.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-034',
+                        "lat": '37.975914',
+                        "lng": '-84.529936',
+                        "description": 'MOW/Nicholasville Rd.',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-034.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-034.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-034.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-034.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-035',
+                        "lat": '38.029273',
+                        "lng": '-84.489944',
+                        "description": 'Euclid/High',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-035.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-035.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-035.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-035.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-036',
+                        "lat": '38.034481',
+                        "lng": '-84.496106',
+                        "description": 'Woodland/Euclid',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-036.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-036.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-036.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-036.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-037',
+                        "lat": '37.990029',
+                        "lng": '-84.495003',
+                        "description": 'New Circle/Tates Creek (Outer)',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-037.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-037.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-037.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-037.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-038',
+                        "lat": '38.037789',
+                        "lng": '-84.499714',
+                        "description": 'Rose/Euclid',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-038.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-038.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-038.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-038.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-039',
+                        "lat": '37.969779',
+                        "lng": '-84.497242',
+                        "description": 'MOW/Tates Creek',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-039.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-039.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-039.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-039.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-040',
+                        "lat": '38.016875',
+                        "lng": '-84.514569',
+                        "description": 'Nicholasville/Rosemont',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-040.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-040.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-040.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-040.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-041',
+                        "lat": '38.011497',
+                        "lng": '-84.516867',
+                        "description": 'Nicholasville/Southland',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-041.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-041.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-041.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-041.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-042',
+                        "lat": '38.003390',
+                        "lng": '-84.519625',
+                        "description": 'Nicholasville/Pasadena',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-042.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-042.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-042.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-042.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-043',
+                        "lat": '37.995513',
+                        "lng": '-84.522196',
+                        "description": 'New Circle/Nicholasville (Outer)',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-043.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-043.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-043.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-043.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-044',
+                        "lat": '37.991195',
+                        "lng": '-84.523418',
+                        "description": 'Nicholasville/Reynolds',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-044.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-044.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-044.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-044.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-045',
+                        "lat": '37.984167',
+                        "lng": '-84.527204',
+                        "description": 'Nicholasville/Rojay',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-045.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-045.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-045.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-045.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-046',
+                        "lat": '37.966635',
+                        "lng": '-84.534415',
+                        "description": 'Nicholasville/Southpoint',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-046.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-046.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-046.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-046.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-047',
+                        "lat": '38.026192',
+                        "lng": '-84.506209',
+                        "description": 'Cooper/University',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-047.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-047.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-047.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-047.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-048',
+                        "lat": '38.025520',
+                        "lng": '-84.501651',
+                        "description": 'Cooper/Sports Center',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-048.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-048.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-048.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-048.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-049',
+                        "lat": '38.040003',
+                        "lng": '-84.506515',
+                        "description": 'Limestone/UK PED',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-049.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-049.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-049.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-049.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-050',
+                        "lat": '38.034985',
+                        "lng": '-84.508424',
+                        "description": 'Limestone/Virginia',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-050.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-050.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-050.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-050.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-051',
+                        "lat": '38.030883',
+                        "lng": '-84.509920',
+                        "description": 'Nicholasville/Conn Terrace',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-051.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-051.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-051.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-051.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-052',
+                        "lat": '38.028165',
+                        "lng": '-84.510483',
+                        "description": 'Nicholasville/Cooper-Waller',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-052.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-052.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-052.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-052.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-053',
+                        "lat": '38.024558',
+                        "lng": '-84.511837',
+                        "description": 'Nicholasville/Alumni',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-053.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-053.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-053.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-053.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-054',
+                        "lat": '38.041477',
+                        "lng": '-84.503675',
+                        "description": 'Limestone/Euclid',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-054.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-054.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-054.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-054.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-055',
+                        "lat": '38.059600',
+                        "lng": '-84.484338',
+                        "description": 'Broadway/Loudon',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-055.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-055.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-055.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-055.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-056',
+                        "lat": '38.001935',
+                        "lng": '-84.571711',
+                        "description": 'MOW/Harrodsburg',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-056.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-056.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-056.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-056.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-057',
+                        "lat": '38.038952',
+                        "lng": '-84.515268',
+                        "description": 'Broadway/Red Mile',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-057.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-057.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-057.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-057.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-058',
+                        "lat": '38.033571',
+                        "lng": '-84.523491',
+                        "description": 'Harrodsburg/Waller-Mason Headley',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-058.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-058.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-058.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-058.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-059',
+                        "lat": '38.026730',
+                        "lng": '-84.534798',
+                        "description": 'Harrodsburg/Lane Allen',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-059.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-059.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-059.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-059.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-060',
+                        "lat": '38.017085',
+                        "lng": '-84.548468',
+                        "description": 'Harrodsburg/Pasadena',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-060.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-060.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-060.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-060.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-061',
+                        "lat": '38.050658',
+                        "lng": '-84.509671',
+                        "description": 'High/Oliver Lewis Way',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-061.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-061.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-061.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-061.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-062',
+                        "lat": '38.047641',
+                        "lng": '-84.543431',
+                        "description": 'Versailles/Mason-Headley',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-062.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-062.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-062.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-062.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-063',
+                        "lat": '38.046634',
+                        "lng": '-84.551779',
+                        "description": 'Versailles/Alexandria',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-063.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-063.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-063.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-063.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-064',
+                        "lat": '38.054305',
+                        "lng": '-84.505869',
+                        "description": 'Main/Newtown',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-064.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-064.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-064.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-064.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-065',
+                        "lat": '38.063750',
+                        "lng": '-84.520616',
+                        "description": 'Leestown/Forbes',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-065.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-065.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-065.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-065.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-066',
+                        "lat": '38.070410',
+                        "lng": '-84.531808',
+                        "description": 'New Circle/Leestown',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-066.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-066.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-066.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-066.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-067',
+                        "lat": '38.068825',
+                        "lng": '-84.528639',
+                        "description": 'Leestown/Trade Center-Taylor',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-067.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-067.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-067.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-067.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-068',
+                        "lat": '38.049643',
+                        "lng": '-84.523407',
+                        "description": 'Versailles/Forbes-Red Mile',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-068.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-068.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-068.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-068.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-069',
+                        "lat": '38.042654',
+                        "lng": '-84.454732',
+                        "description": 'New Circle/Winchester',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-069.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-069.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-069.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-069.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-070',
+                        "lat": '38.029194',
+                        "lng": '-84.452834',
+                        "description": 'New Circle/Liberty',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-070.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-070.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-070.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-070.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-071',
+                        "lat": '38.060043',
+                        "lng": '-84.465188',
+                        "description": 'New Circle/Bryan Station',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-071.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-071.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-071.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-071.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-072',
+                        "lat": '38.055692',
+                        "lng": '-84.460714',
+                        "description": 'New Circle/Meadow Lane',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-072.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-072.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-072.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-072.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-073',
+                        "lat": '38.072943',
+                        "lng": '-84.482348',
+                        "description": 'New Circle/Boardwalk',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-073.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-073.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-073.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-073.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-074',
+                        "lat": '38.067729',
+                        "lng": '-84.473225',
+                        "description": 'New Circle/Broadway',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-074.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-074.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-074.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-074.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-075',
+                        "lat": '38.074216',
+                        "lng": '-84.459211',
+                        "description": 'Broadway/Haggard',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-075.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-075.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-075.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-075.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-076',
+                        "lat": '38.013570',
+                        "lng": '-84.555326',
+                        "description": 'Harrodsburg/Corporate',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-076.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-076.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-076.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-076.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-077',
+                        "lat": '38.047811',
+                        "lng": '-84.501681',
+                        "description": 'High/Broadway',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-077.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-077.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-077.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-077.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-078',
+                        "lat": '38.042070',
+                        "lng": '-84.446636',
+                        "description": 'Winchester/Fortune',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-078.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-078.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-078.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-078.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-079',
+                        "lat": '38.080777',
+                        "lng": '-84.546180',
+                        "description": 'Leestown/Citation',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-079.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-079.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-079.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-079.stream/manifest.mpd'
+                        }
+            ,
+                        {
+                        "camera": 'LEX-CAM-080',
+                        "lat": '38.046828',
+                        "lng": '-84.496100',
+                        "description": 'Limestone/Short',
+                        "still": 'https://5723acd20ffa9.streamlock.net:1935/snapshots?application=lexington-live&snap=lex-cam-080.stream',
+            "status": 'https://5723acd20ffa9.streamlock.net:1935/status?application=lexington-live&id=lex-cam-080.stream',
+            "override": 'Off',
+                        "hls": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-080.stream/playlist.m3u8',
+                        "dash": 'https://5723acd20ffa9.streamlock.net:1935/lexington-live/lex-cam-080.stream/manifest.mpd'
+                        }
+
+        ];
+        camMarker = camMarker.sort(function(a, b){
+                                    var descA=a.description.toLowerCase(), descB=b.description.toLowerCase()
+                                    if (descA < descB)
+                                        return -1
+                                    if (descA > descB)
+                                        return 1
+                                    return 0
+                                  })  //sorts camMarker alphabetically
+
+
+        function pageLoad(sender, args) {
+                /* Check if Mobile */
+        window.ifMobileHideLinks();
+
+        /*Google map*/
+                var mapCenter = new google.maps.LatLng(38.030759, -84.505366);
+                 map = new google.maps.Map(
+                    document.getElementById('map'),
+                    {
+                        zoom: 14,
+                        draggable: true,
+                        center: mapCenter
+                    }
+                );
+
+                 var trafficLayer = new google.maps.TrafficLayer();
+                 trafficLayer.setMap(map);
+
+                /*Create myMarker and api array - Implemented both objects as array to keep track of individual flowplayer instances since once a player is loaded,
+                even in the case of one instance only, the player would keep sending GET requests even after its instance was replaced by another one. In addition,
+                needed to keep track of individual timers, arrays seemed like good solution */
+                myMarker = [];
+                api =[];
+
+        var camerasTableStringContent = "";
+                for (var i = 0; i < camMarker.length; i++)
+        {
+                    if (i%2 == 0)
+          {
+                        camerasTableStringContent = camerasTableStringContent + "<tr><td class=\"camColumns\"><div class=\"camAccordionDiv\"><img id=img" + camMarker[i].camera + " class=\"camAccordionImg\" src="https://trafficvid.lexingtonky.gov/publicmap/+"\"" + camMarker[i].still + "\"><p class=\"camAccordionDesc\" id=\"p" + camMarker[i].camera + "\">" + camMarker[i].description + "</p></div></td>";
+                    }
+                    else
+          {
+                        camerasTableStringContent = camerasTableStringContent + "<td class=\"camColumns\"><div class=\"camAccordionDiv\"><img id=img" + camMarker[i].camera + " class=\"camAccordionImg\" src="https://trafficvid.lexingtonky.gov/publicmap/+"\"" + camMarker[i].still + "\"><p class=\"camAccordionDesc\" id=\"p" + camMarker[i].camera + "\">" + camMarker[i].description + "</p></div></td></tr>";
+                    }
+                }
+                $("#camerasTable").append(camerasTableStringContent)
+
+                for(var i = 0; i < camMarker.length; i++){
+
+                    myMarker[i] = new google.maps.Marker({
+                        map: map,
+                        draggable: false,
+                        raiseOnDrag: false,
+                        title: camMarker[i].description,
+                        icon: 'images/cameraiconmap.png',
+                        position: new google.maps.LatLng(camMarker[i].lat, camMarker[i].lng),
+                    });
+                    myMarker[i].infoField = camMarker[i].description + "+" + camMarker[i].camera + "+" + camMarker[i].still + "+" + camMarker[i].hls; //valid since in javascript objects are hashtables
+                    myMarker[i].overridestatus = camMarker[i].override;
+
+                    var contentString = '<div class="infoWindowContent">'+
+                                        '<h1 class="infoWindowHeading">' + camMarker[i].description + '</h1>'+
+                                        '<div id="vidplayer' + i + '" class = "videoPlayer"></div></div>';
+
+                    myMarker[i].infoWindow = new google.maps.InfoWindow(); //valid since in javascript objects are hashtables
+
+          //Add camera function to open camera given id appended to URL. Also update URL when a camera is opened.
+          //Add Google analyzer script
+
+          (function(myMarker, api, contentString, i) {
+            google.maps.event.addListener(myMarker[i], "click", function(e) {
+
+                if(sessionStorage.getItem('dialogStatus') == '1')
+              {
+                sessionStorage.setItem('dialogStatus','0');
+                var x = + sessionStorage.getItem('markerNumber');
+                myMarker[x].infoWindow.close()
+                var videoInfo = api[x].video;api[x].stop().shutdown();api[x].trigger("error", [api[x],{code:1,video:videoInfo}]);
+                clearTimeout(myMarker[x].timerWin);
+                clearTimeout(myMarker[x].timerPlay);
+
+              }
+                            if(sessionStorage.getItem('dialogStatus')!= '1')
+              {
+                myMarker[i].infoWindow.setContent(contentString);
+                myMarker[i].infoWindow.open(map, myMarker[i]);
+                sessionStorage.setItem('markerNumber',i);
+                sessionStorage.setItem('dialogStatus','1');
+                if (history.pushState) {
+                  var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?cam='+i;
+                  window.history.pushState({path:newurl},'',newurl);
+                }
+                if (myMarker[i].overridestatus =='Off') {
+                    api[i] = flowplayer($('#vidplayer' + i), {  key:'$141727026391555', autoplay: false, live: true, embed:false, logo:'/publicmap/images/CityLogo.png', ratio: 9/16,
+                        fullscreen: false,
+                        playlist: [
+                                            {//begin clip
+                                                autoplay: false, live: true,
+                                                sources: [
+                                                {type: 'application/x-mpegurl' ,
+                                                    src: myMarker[i].infoField.split('+')[3]}
+                                                ,{type: 'application/dash+xml' ,
+                                                    src: myMarker[i].infoField.split('+')[3].replace("playlist.m3u8","manifest.mpd")}
+                                                ,{type: 'application/x-mpegurl' ,
+                                                    src: myMarker[i].infoField.split('+')[3]}
+                                                ]
+                                            }//end clip
+                        ]
+
+                    });
+                } else {
+                    api[i] = flowplayer($('#vidplayer' + i), {  key:'$141727026391555', autoplay: false, live: true, embed:false, logo:'/publicmap/images/CityLogo.png', ratio: 9/16,
+                        fullscreen: false,
+                        playlist: [
+                                            {//begin clip
+                                                autoplay: false, live: true,
+                                                sources: [
+                                                {type: 'video/mp4' ,
+                                                 src: "images/streamAvailable.mp4",
+                                                 loop: true}
+                                                ]
+                                            }//end clip
+                        ]
+
+                    });
+                }
+
+
+                api[i].on("ready", function (e) {
+                  sessionStorage.setItem('dialogStatus','1')
+                  myMarker[i].timerWin = setTimeout(function(){myMarker[i].infoWindow.close();var videoInfo = api[i].video;api[i].stop().shutdown();api[i].trigger("error", [api[i],{code:1,video:videoInfo}]);sessionStorage.setItem('dialogStatus','0');if (history.pushState) {var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;window.history.pushState({path:newurl},'',newurl);}}, '15000');
+                  api[i].on("resume", function (e) {
+                    clearTimeout(myMarker[i].timerWin);
+                    myMarker[i].timerPlay = setTimeout(function(){myMarker[i].infoWindow.close();var videoInfo = api[i].video;api[i].stop().shutdown();api[i].trigger("error", [api[i],{code:1,video:videoInfo}]);sessionStorage.setItem('dialogStatus','0');if (history.pushState) {var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;window.history.pushState({path:newurl},'',newurl);}}, '15000');
+                  });
+                });
+
+                google.maps.event.addListener(map, 'click', function() {
+                  if (history.pushState) {
+                    var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                    window.history.pushState({path:newurl},'',newurl);
+                  }
+                  myMarker[i].infoWindow.close()
+                  sessionStorage.setItem('dialogStatus','0');
+                  var videoInfo = api[i].video;api[i].stop().shutdown();api[i].trigger("error", [api[i],{code:1,video:videoInfo}]);
+                  clearTimeout(myMarker[i].timerWin);
+                  clearTimeout(myMarker[i].timerPlay);
+                });
+
+                google.maps.event.addListener(myMarker[i].infoWindow,'closeclick',function(){
+                  if (history.pushState) {
+                    var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                    window.history.pushState({path:newurl},'',newurl);
+                  }
+                  sessionStorage.setItem('dialogStatus','0');
+                  var videoInfo = api[i].video;api[i].stop().shutdown();api[i].trigger("error", [api[i],{code:1,video:videoInfo}]);
+                  clearTimeout(myMarker[i].timerWin);
+                  clearTimeout(myMarker[i].timerPlay);
+                });
+
+              }
+
+                            // Customized infoWindow quick fix
+                            var iwOuter = $('.gm-style-iw');
+                            var iwBackground = iwOuter.prev();
+                            iwBackground.children(':nth-child(2)').css({'display' : 'none'});
+                            iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+                            var iwCloseBtn = iwOuter.next();
+                            iwCloseBtn.css({
+                                opacity: '1',
+                                right: '33px', top: '3px',
+                                border: '2px solid rgba(0, 26, 73, 0.75)',
+                                'border-radius': '13px'
+                            });
+                            iwCloseBtn.mouseout(function(){
+                                $(this).css({opacity: '1'});
+                            });
+
+
+                        });
+            $( "#img" + camMarker[i].camera + ",#p" + camMarker[i].camera).on('click', {id: i}, function (e) {
+              if(sessionStorage.getItem('dialogStatus') == '1')
+              {
+                sessionStorage.setItem('dialogStatus','0');
+                var x = + sessionStorage.getItem('markerNumber');
+                myMarker[x].infoWindow.close()
+                var videoInfo = api[x].video;api[x].stop().shutdown();api[x].trigger("error", [api[x],{code:1,video:videoInfo}]);
+                clearTimeout(myMarker[x].timerWin);
+                clearTimeout(myMarker[x].timerPlay);
+                map.setCenter(new google.maps.LatLng(camMarker[e.data.id].lat, camMarker[e.data.id].lng));
+                map.setZoom(18);
+                google.maps.event.trigger(myMarker[i], "click");
+              }
+              if(sessionStorage.getItem('dialogStatus')!= '1')
+              {
+                map.setCenter(new google.maps.LatLng(camMarker[e.data.id].lat, camMarker[e.data.id].lng));
+                map.setZoom(18);
+                google.maps.event.trigger(myMarker[i], "click");
+
+              }
+            });
+
+                    })(myMarker, api, contentString, i);
+
+
+                }
+
+                $( "#Area-Downtown").on('click',function (e) {
+                    map.setCenter(new google.maps.LatLng(38.045173,-84.494836));
+                    map.setZoom(16);
+                });
+
+                $( "#Area-Hamburg").on('click',function (e) {
+                    map.setCenter(new google.maps.LatLng(38.014347,-84.417801));
+                    map.setZoom(15);
+                });
+
+                $( "#Area-Harrodsburg").on('click',function (e) {
+                    map.setCenter(new google.maps.LatLng(38.026371,-84.545453));
+                    map.setZoom(15);
+                });
+
+                $( "#Area-LeestownRd").on('click',function (e) {
+                    map.setCenter(new google.maps.LatLng(38.072045,-84.532707));
+                    map.setZoom(15);
+                });
+
+                $( "#Area-ManOWarEast").on('click',function (e) {
+                    map.setCenter(new google.maps.LatLng(37.990620,-84.435873));
+                    map.setZoom(14);
+                });
+
+                $( "#Area-NicholasVilleRd").on('click',function (e) {
+                    map.setCenter(new google.maps.LatLng(37.984684,-84.527177));
+                    map.setZoom(14);
+                });
+
+                $( "#Area-NorthNewCircle").on('click',function (e) {
+                    map.setCenter(new google.maps.LatLng(38.084077,-84.472647));
+                    map.setZoom(14);
+                });
+
+                $( "#Area-UKCampus").on('click',function (e) {
+                    map.setCenter(new google.maps.LatLng(38.030935,-84.505048));
+                    map.setZoom(16);
+                });
+
+                $( "#Area-VersaillesRd").on('click',function (e) {
+                    map.setCenter(new google.maps.LatLng(38.048595,-84.533973));
+                    map.setZoom(15);
+                });
+
+                $( "#Area-WinchesterRd").on('click',function (e) {
+                    map.setCenter(new google.maps.LatLng(38.041531,-84.441039));
+                    map.setZoom(15);
+                });
+
+        $(function() {
+          var icons = {
+          header: "ui-icon-plus",
+          activeHeader: "ui-icon-minus"
+         };
+         jQuery( "#toolbar" ).accordion({
+         icons: icons,
+         collapsible: true,
+         active: false,
+         heightStyle: "content",
+         autoHeight: false
+         });
+        });
+
+        } //end pageload
+
+    $(window).bind('beforeunload',function(){
+      sessionStorage.setItem('dialogStatus','0');
+    });
+
+    $(window).bind('load', function(){
+      var camid = + url_query();
+        if(isNaN(camid))
+        {
+          //do nothing
+        }
+        else
+        {
+          map.setCenter(new google.maps.LatLng(camMarker[camid].lat, camMarker[camid].lng));
+          map.setZoom(18);
+          google.maps.event.trigger(myMarker[camid],"click");
+        }
+    });
+
+    function url_query() {
+      var camNum = window.location.href.split("cam=");
+      if ( camNum == null ) {
+        return -1;
+      } else {
+        return camNum[1];
+      }
+    }
+
+    window.ifMobileHideLinks = function() {
+      (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))){$('#quicklinks').hide();$('#btnMedia').hide();$('#btnFirstResp').hide();}})(navigator.userAgent||navigator.vendor||window.opera);
+    }
+
+    $(function() {
+      $("#info-dialog").dialog({
+        autoOpen: false,
+        width: 700,
+        height: 500
+      });
+      $("#btnInfo").on("click", function() {
+        $("#info-dialog").dialog("open");
+      });
+    });
+    </script>
+
+</head>
+
+<body>
+
+  <!-- Google Tag Manager -->
+
+  <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TKFXKD"  height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-TKFXKD');
+    </script>
+
+  <!-- End Google Tag Manager -->
+
+    <form method="post" action="../robots.txt.html" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+
+
+<script src="ScriptResource.axd%3Fd=nnHyWnZ5bTPuYszCeiYmK4-IdIwLeHC8W7GeItlMGILtEK59Dl84lP1r3hUjSgXnkTsfd2M7ydu2FDe33qY2ZAVgpKnCFlba86uRpkVpZW0MLQpdZchejXogEuJ7Lt6sL-JhuBH7q2_90hAs4xnGT9_MF7F9rRb6LoRMQbGmBNM1&amp;t=ffffffffeea0dba9" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+//]]>
+</script>
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="C522B7E7" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="f7aU/iZc1q+Ufj1VVzTrJyKcaXe+KiOvDu9mNgslWSE0l7w1U/DXEvr7uqY9nUSypdA2fUCTJDpOCPaQ26vgmTgyJnSgXs0r+aLUJmSjLJjy0u09NKoabwja167Z9GGyRxNuC4CtNtkdxv3yUXwXkA==" />
+
+        <header class="lex-site-header" role="banner">
+            <nav class="lex-site-navbar">
+                <div class="lex-grid-full">
+          <div class="img-btn">
+            <input type="image" name="btnFirstResp" id="btnFirstResp" src="images/first-resp-page-41.png" alt="First Resp Page" />
+            <input type="image" name="btnMedia" id="btnMedia" src="images/media-page-41.png" alt="Media Page" />
+            <a href="Javascript:" id="btnInfo" value="Info"><img id="info-img" src="images/info-button-41.png" title="Info"></a>
+          </div>
+                    <div id="quicklinks">
+                        <ol class="lex-quicklinks">
+                            <li><a href="http://www.lexingtonky.gov/index.aspx?page=3441">LexCall 311</a></li>
+                            <li><a href="http://www.lexingtonky.gov/index.aspx?page=1918">Traffic Ticker</a></li>
+                            <li><a href="http://511.ky.gov/kyhb/#roadReports?timeFrame=TODAY&layers=allReports%2CroadReports%2CwazeReports%2CwinterDriving%2CwinterActivities%2CweatherWarnings">511 Road Condition Report</a></li>
+                            <li><a href="http://www.lexingtonky.gov/index.aspx?page=661">Interstate Information</a></li>
+                            <li><a href="http://www.lexingtonky.gov/">lexingtonky.gov</a></li>
+                        </ol>
+                    </div>
+          <a href="http://www.lexingtonky.gov" accesskey="1" title="Home" aria-label="Home">
+                    <div class="logo" id="logo"></div>
+          </a>
+                </div>
+            </nav>
+            <div class="lex-search-hero-container">
+                <div class="lex-grid-full">
+                    <h1>Lexington-Fayette Urban County Government Traffic Cameras</h1>
+                </div>
+            </div>
+        </header>
+
+
+
+        <div id ="mgrmap">
+            <div id="toolbar">
+                <div id ="areas">
+                    <table id="areasTable">
+                        <tbody >
+                            <tr><th id="Area-Downtown">Downtown</th></tr>
+                            <tr><th id="Area-Hamburg">Hamburg</th></tr>
+                            <tr><th id="Area-Harrodsburg">Harrodsburg Rd.</th></tr>
+                            <tr><th id="Area-LeestownRd">Leestown Rd.</th> </tr>
+                            <tr><th id="Area-ManOWarEast">Man O War Blvd. East</th></tr>
+                            <tr><th id="Area-NicholasVilleRd">Nicholasville Rd./Tates Creek Rd.</th></tr>
+                            <tr><th id="Area-NorthNewCircle">North New Circle</th></tr>
+                            <tr><th id="Area-UKCampus">UK Campus</th></tr>
+                            <tr><th id="Area-VersaillesRd">Versailles Rd.</th></tr>
+                            <tr><th id="Area-WinchesterRd">Winchester Rd.</th></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="cameras">
+                    <table id="camTable">
+                        <tbody id="camerasTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="map"></div>
+        </div>
+    <footer class="lex-slab lex-slab-blue" role="contentinfo">
+      <section class="lex-grid-full usa-grid">
+        <div class="lex-region-footer_second">
+          <div class="views-element-container lex-block usa-width-one-third" id="block-views-block-taxonomy-top-level-block-footer-titles-only">
+            <h2 class="lex-font-standout lex-section-heading lex-heading">lexingtonky.gov</h2>
+            <div>
+              <div class="no-style-div">
+                <div>
+                  <ul class="usa-unstyled-list">
+                    <li><a href="http://www.lexingtonky.gov/" hreflang="en">Government</a></li>
+                    <li><a href="https://jobs.lexingtonky.gov/careers" hreflang="en">Jobs and Contracts</a></li>
+                    <li><a href="https://trafficvid.lexingtonky.gov/" hreflang="en">Licensing and Permits</a></li>
+                    <li><a href="http://www.lexingtonky.gov/index.aspx?page=198" hreflang="en">Recreation</a></li>
+                    <li><a href="http://www.lexingtonky.gov/index.aspx?page=30" hreflang="en">Public Safety</a></li>
+                    <li><a href="http://www.lexingtonky.gov/index.aspx?page=2323" hreflang="en">Utilities and Streets</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="lex-block usa-width-one-third" id="block-footer">
+            <h2 class="lex-font-standout lex-section-heading lex-heading">services</h2>
+            <ul class="usa-unstyled-list">
+                <li><a href="http://www.lexingtonky.gov/index.aspx?page=3441">LexCall 311</a></li>
+                <li><a href="http://www.lexingtonky.gov/index.aspx?page=3044">LexServ</a></li>
+                <li><a href="http://www.lexingtonky.gov/index.aspx?page=1918">Traffic updates</a></li>
+                <li><a href="http://www.lexingtonky.gov/index.aspx?page=666">Trash &amp; Recycling</a></li>
+                <li><a href="http://www.lexingtonky.gov/index.aspx?page=455">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="usa-width-one-third">
+          <h2 class="lex-section-heading lex-heading lex-font-standout">Get in touch</h2>
+          <ul class="usa-unstyled-list">
+            <li>
+              <div class="h-adr">
+                <a class="lex-font-standout" href="https://www.google.com/maps/dir//200+E. Main St.+40507+Lexington+KY" target="_blank">
+                  <span class="lex-street-address p-street-address">200 E. Main St.</span>
+                  <span class="p-locality">Lexington, KY</span>
+                  <span class="p-postal-code">40507</span>
+                </a>
+              </div>
+            </li>
+            <li>
+              <i class="fa fa-phone"></i>
+              <a class="lex-font-standout" href="tel:8594252255">(859) 425-2255</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="lex-grid-full lex-sub-footer">
+      <img class="lex-seal" alt="Lexington-Fayette Seal" src="images/lexington-seal.svg">
+      <ul class="usa-unstyled-list lex-horizontal-list">
+        <li><a href="http://www.lexingtonky.gov/index.aspx?page=455">Provide feedback</a></li>
+        <li><a href="http://www.lexingtonky.gov/index.aspx?page=1637">Terms of use</a></li>
+      </ul>
+      </section>
+    </footer>
+    </form>
+
+</body>
+</html>
